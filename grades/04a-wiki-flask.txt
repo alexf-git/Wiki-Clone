@@ -1,0 +1,23 @@
+# Class Activity - Creating a Flask App
+
+(Graded from commit bdd87b3df135c24a8e5a9a8b3178bf4fea72b9fb)
+
+Commits from multiple project members.  (Score += 50%)
+
+RUN pip install -r requirements.txt
+>>> Exit success! (Score += 5%)
+
+RUN ./run-flask.sh
+>>> Success! (Score += 5%)
+
+RUN pytest wiki_test.py
+>>> Exit success! (Score += 10%)
+
+wiki.py contains '@app.route("/")' (Score += 10%)
+
+wiki.py contains 'app = Flask(__name__)' (Score += 10%)
+
+wiki_test.py contains 'def test_homepage(client):' (Score += 10%)
+
+YOUR SCORE:
+100%
