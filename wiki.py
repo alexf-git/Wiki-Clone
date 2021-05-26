@@ -5,6 +5,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def main():
+    backup()
     return handle_request('pages/FrontPage.txt')
 
 @app.route("/handle_request/")
@@ -23,3 +24,19 @@ def handle_request(this_page):                  # receive the request
         page_name=name,
         page_content=payload,
     )
+
+def backup():
+    import os
+    import pathlib
+    from os import walk
+    files = []
+    for (dirpath, dirnames, filenames) in walk(os.path.abspath('pages')):
+        files.extend(filenames)
+    inputdir = 'pages/'
+    outputdir = 'TestPages/'
+
+    for i in files:
+        with open(inputdir+i, 'r') as r:
+            with open(outputdir+i, 'w') as w:
+                w.write(r.read())
+                
