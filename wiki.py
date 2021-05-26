@@ -7,7 +7,7 @@ app = Flask(__name__)
 def main():
     return handle_request('FrontPage.txt')
 
-@app.route("/pages/<this_page>")
+@app.route("pages/<this_page>")
 def handle_request(this_page=None):                  # receive the request
     # TODO: load the desired page content
     payload = None
