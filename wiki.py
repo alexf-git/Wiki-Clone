@@ -12,17 +12,16 @@ def main():
 @app.route("/handle_request/<this_page>")
 def handle_request(this_page):                  # receive the request
     # TODO: load the desired page content
-    raw = this_page.split('/')
-    name = raw[-1]
-    name = name.strip('.txt')
     payload = None
     with open(this_page, 'r') as f:
-        payload = f.read()
+        payload = f.readlines()
+
 
     return render_template(                 # return page_name and payload
-        'main.html',
-        page_name=name,
-        page_content=payload,
+        'city.html',
+        city_name=payload[0],
+        city_fact=payload[1],
+        city_content=payload[2:],
     )
 
 def backup():
