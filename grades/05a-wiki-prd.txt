@@ -1,0 +1,15 @@
+grade	98
+
+pdf in git repo?	10
+authors listed?	10
+section titles?	10
+vision?	10
+motivation?	9
+goals?	10
+non-goals?	10
+functional requirements?	10
+non-functional requirements?	9
+use cases?	10
+Notes	"Motivation: Good job describing the problem being solved. It could be phrased a little more clearly, such as starting it with ""It is difficult to find"" rather than starting the sentence with ""Finding"".
+
+Non-functional requirements: I like these requirments. In the memory optimation section, avoid prescribing specific solutions such as Hash Maps (those are better suited for a design document). Instead, make some goals such as memory usage scales linearly with the number of threads (O(number of threads))."
