@@ -20,7 +20,7 @@ def handle_request(this_page):                  # receive the request
         payload = f.read()
 
     return render_template(                 # return page_name and payload
-        "main.html",
+        'main.html',
         page_name=name,
         page_content=payload,
     )
