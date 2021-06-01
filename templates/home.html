@@ -2,7 +2,15 @@
 <title>{{ page_name }}</title>
 <h1>{{page_name}}</h1>
 <label for="States">Choose a state:</label>
-<select name="States" id="cars">
-    <option value="Florida">Florida</option>
-    <option value="Texas">Texas</option>
-</select> 
+<select name="States" id="states">
+    {% for state in state_dict.keys() %}
+    <option value="{{state}}">{{state}}</option>
+    {% endfor %}
+</select>
+
+<fieldset>
+    <legend>Cities</legend>
+    {% for city in state_dict[state] %}
+        <li><a href="{{city, state}}.html"</li>
+    {% endfor %}
+</fieldset>

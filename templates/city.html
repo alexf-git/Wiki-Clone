@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<title>{{city_name}}</title>
+<title>{% block city_name %}{% endblock %}</title>
 <h1>{{city_name}}</h1>
 <h3>{{city_fact}}</h3>
 <p>{{city_content}}</p>
 <fieldset>
     <legend>Discussion Board</legend>
-    <p>This city is cool</p>
+    {% for post in city_posts %}
+        <p>{{ post|replace("\n'",' ') }}</p>
+    {% endfor %}
 </fieldset>
 <fieldset>
     <legend>Post comment</legend>
