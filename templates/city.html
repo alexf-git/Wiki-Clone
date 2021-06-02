@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<title>{% block city_name %}{% endblock %}</title>
+<title>{{city_name}}</title>
 <h1>{{city_name}}</h1>
 <h3>{{city_fact}}</h3>
 <p>{{city_content}}</p>
+<img src={{img_path}}/>
 <fieldset>
     <legend>Discussion Board</legend>
     {% for post in city_posts %}

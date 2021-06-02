@@ -2,15 +2,21 @@
 <title>{{ page_name }}</title>
 <h1>{{page_name}}</h1>
 <label for="States">Choose a state:</label>
-<select name="States" id="states">
+<select id="State">
     {% for state in state_dict.keys() %}
-    <option value="{{state}}">{{state}}</option>
+        <option value="{{state}}">{{state}}</option>
     {% endfor %}
 </select>
 
 <fieldset>
     <legend>Cities</legend>
-    {% for city in state_dict[state] %}
-        <li><a href="{{city, state}}.html"</li>
+    <ul>
+    {%for state,cities in state_dict.items()%}
+        {% for city in cities %}
+            {% set location = city+', '+state %}
+            {% set url = url_for('city_request', this_page=location) %}
+            <li><a href= "{{ url }}">{{city}}</a></li>
+        {% endfor %}
     {% endfor %}
+    </ul>
 </fieldset>

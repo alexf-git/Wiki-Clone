@@ -1,5 +1,4 @@
 import pytest
-
 import wiki
 
 
@@ -18,4 +17,9 @@ def test_import():
 def test_homepage(client):
     resp = client.get("/")
     assert resp.status_code == 200
-    assert b"Hello, World!\n" in resp.data
+    assert b'<title>City Browser</title>' in resp.data
+
+def test_El_Paso_Data(client):
+    resp = client.get('/city_request/El Paso, Texas')
+    assert resp.status_code == 200
+    assert b'<h1>El Paso, Texas\n</h1>' in resp.data
