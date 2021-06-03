@@ -38,7 +38,7 @@ def home_request(home_page: str) -> str:
 
 
 @app.route("/city_request/<this_page>")
-def city_request(this_page: str) -> str:
+def city_request(this_page: str):
     payload = None
     full_path = 'pages/'+this_page+'.txt'
     if os.path.exists(full_path):
@@ -65,7 +65,7 @@ def city_request(this_page: str) -> str:
             city_content=str(contents).strip('["').strip('"]'),
             city_posts=comments,
         )
-    return 'Path is not forming', full_path
+    return 'Path is not forming '+ full_path
 
 
 def backup():
