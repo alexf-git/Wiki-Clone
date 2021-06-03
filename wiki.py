@@ -6,6 +6,7 @@ app = Flask(__name__)
 
 states = dict()
 
+
 @app.route("/")
 def main():
     backup()
@@ -19,10 +20,11 @@ def main():
         city_string = data[1]
         city_list = city_string.split(',')
         states[state] = [city.strip('\n') for city in city_list]
-    return render_template('home.html', 
-        state_dict=states, 
+    return render_template('home.html',
+        state_dict=states,
         page_name='City Browser'
-        )
+    )
+
 
 @app.route("/home_request/<home_page>")
 def home_request(home_page):
@@ -32,6 +34,7 @@ def home_request(home_page):
         state_dict = states,
         city_request=city_request,
     )
+
 
 @app.route("/city_request/<this_page>")
 def city_request(this_page):                                # receive the request
@@ -63,6 +66,7 @@ def city_request(this_page):                                # receive the reques
         )
     return 'Path is not forming', full_path
     
+
 def backup():
     import os
     inputdir = 'pages/'
