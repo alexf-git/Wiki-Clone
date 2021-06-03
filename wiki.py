@@ -65,7 +65,7 @@ def city_request(this_page: str):
             city_content=str(contents).strip('["').strip('"]'),
             city_posts=comments,
         )
-    return 'Path is not forming '+ full_path
+    return 'Path is not forming ' + full_path
 
 
 def backup():
