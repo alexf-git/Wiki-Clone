@@ -38,7 +38,7 @@ def home_request(home_page: str) -> str:
 
 
 @app.route("/city_request/<this_page>")
-def city_request(this_page: str) -> tuple:
+def city_request(this_page: str) -> str:
     payload = None
     full_path = 'pages/'+this_page+'.txt'
     if os.path.exists(full_path):
