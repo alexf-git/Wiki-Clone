@@ -51,7 +51,7 @@ def city_request(this_page: str):
             if ":;:" in payload[row]:
                 contents = payload[:row]
                 if row < len(payload) - 1:
-                    comments = payload[row + 1 :]
+                    comments = payload[(row + 1):]
                 break
         return render_template(
             "city.html",
