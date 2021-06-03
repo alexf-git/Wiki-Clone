@@ -20,11 +20,7 @@ def main():
         city_string = data[1]
         city_list = city_string.split(',')
         states[state] = [city.strip('\n') for city in city_list]
-    return render_template(
-        'home.html',
-        state_dict=states,
-        page_name='City Browser',
-    )
+    return home_request(home_page)
 
 
 @app.route("/home_request/<home_page>")
