@@ -6,6 +6,7 @@ lint:
 test:
   script:
   - pip install -r requirements.txt
+  - pytest . --cov=wiki --cov=wiki_test --cov-report term-missing --cov-branch
   - pytest .
 type-check:
   script:
