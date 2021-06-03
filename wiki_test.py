@@ -17,15 +17,15 @@ def test_import():
 def test_homepage(client):
     resp = client.get("/")
     assert resp.status_code == 200
-    assert b'<title>City Browser</title>' in resp.data
+    assert b"<title>City Browser</title>" in resp.data
 
 
 def test_El_Paso_Data(client):
-    resp = client.get('/city_request/El Paso, Texas')
+    resp = client.get("/city_request/El Paso, Texas")
     assert resp.status_code == 200
-    assert b'<h1>El Paso, Texas\n</h1>' in resp.data
+    assert b"<h1>El Paso, Texas\n</h1>" in resp.data
+
 
 def test_no_path_city_request(client):
-    resp = client.get('/city_request/El Paso, California')
+    resp = client.get("/city_request/El Paso, California")
     assert resp.status_code == 200
-    
