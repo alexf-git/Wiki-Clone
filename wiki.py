@@ -21,8 +21,8 @@ def main():
         city_list = city_string.split(',')
         states[state] = [city.strip('\n') for city in city_list]
     return render_template('home.html',
-        state_dict=states,
-        page_name='City Browser'
+            state_dict=states,
+            page_name='City Browser',
     )
 
 
@@ -37,7 +37,7 @@ def home_request(home_page):
 
 
 @app.route("/city_request/<this_page>")
-def city_request(this_page):                                # receive the request
+def city_request(this_page):
     payload = None
     full_path = 'pages/'+this_page+'.txt'
     if os.path.exists(full_path):
@@ -50,13 +50,13 @@ def city_request(this_page):                                # receive the reques
         payload = payload[3:]
         contents = None
         comments = None
-        for row  in range(len(payload)):
+        for row in range(len(payload)):
             if ':;:' in payload[row]:
                 contents = payload[:row]
                 if row < len(payload)-1:
                     comments = payload[row+1:]
                 break
-        return render_template(                                 # return page_name and payload
+        return render_template(
             'city.html',
             img_path=img,
             city_name=name,
@@ -65,7 +65,7 @@ def city_request(this_page):                                # receive the reques
             city_posts=comments,
         )
     return 'Path is not forming', full_path
-    
+
 
 def backup():
     import os
