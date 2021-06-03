@@ -28,7 +28,7 @@ def main():
 
 
 @app.route("/home_request/<home_page>")
-def home_request(home_page):
+def home_request(home_page: str) -> str:
     return render_template(
         'home.html',
         page_name='City Browser',
@@ -38,7 +38,7 @@ def home_request(home_page):
 
 
 @app.route("/city_request/<this_page>")
-def city_request(this_page):
+def city_request(this_page: str) -> tuple:
     payload = None
     full_path = 'pages/'+this_page+'.txt'
     if os.path.exists(full_path):
