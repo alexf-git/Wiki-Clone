@@ -21,8 +21,8 @@ def main():
         city_list = city_string.split(',')
         states[state] = [city.strip('\n') for city in city_list]
     return render_template('home.html',
-            state_dict=states,
-            page_name='City Browser',
+        state_dict=states,
+        page_name='City Browser',
     )
 
 
@@ -30,8 +30,8 @@ def main():
 def home_request(home_page):
     return render_template(
         'home.html',
-        page_name = 'City Browser',
-        state_dict = states,
+        page_name='City Browser',
+        state_dict=states,
         city_request=city_request,
     )
 
