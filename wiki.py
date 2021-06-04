@@ -40,7 +40,6 @@ def city_request(this_page: str):
     if os.path.exists(full_path):
         with open(full_path, "r") as f:
             payload = f.readlines()
-
         img = payload[0]
         name = payload[1]
         fact = payload[2]
