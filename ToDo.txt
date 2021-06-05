@@ -1,12 +1,6 @@
-Remove Dropdown from city browser
-    Make state in bold and list its cities in normal font (linked)
-
 Find appropriate pictures for the wiki pages
-change data on posts
-change hashmaps to dictionaries
 
-1 more state
-    2 more cities
+change hashmaps to dictionaries PRD
 
 start figuring out the .css stuff for more functionality
 
@@ -14,7 +8,5 @@ work on the posting functionality
     posting should send data back to the server where the server will take incoming data, write onto comments
 
 Dustyn's logo
-
-Change Wiki Name
 
 implement history
