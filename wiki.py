@@ -1,9 +1,10 @@
 import os
+import pathlib
 from flask import Flask
-from flask import render_template
+from flask import render_template, redirect,url_for,request
 
 app = Flask(__name__)
-
+current_dir = pathlib.Path(__file__).parent
 states = dict()
 
 
@@ -62,6 +63,43 @@ def city_request(this_page: str):
             city_posts=comments,
         )
     return "Path is not forming " + full_path
+
+@app.route("/edit/<city_name>", methods = ["POST"])
+def edit(city_name):
+    page_dir= current_dir / f"pages/{city_name}.txt"
+    if request.methods == 'POST':
+        posted_content = request.form['form']
+        #validate information (user name, email, description)
+        validate_information(posted_content)
+        #write new content to file
+        write_to_page(page_dir,posted_content)
+        #update history
+        #redirect to "current page"
+        return redirect(url_for('/city_request/city_name'))
+    else:
+        #get page content
+        content = get_page_content(page_dir)
+        #send page content to html form
+        render_template("form.html", page_content = content, page_name = city_name)
+
+
+def get_page_content(page_dir):
+    with open(page_dir, "r") as f:
+        content = f.read()
+    return content
+
+def validate_information(content):
+    if len(content) != 0: 
+        return True
+    return False
+
+def write_to_page(page_dir, content):
+    with open(page_dir, 'w') as f:
+        f.write()
+
+
+def update_history():
+    pass
 
 
 def backup():
