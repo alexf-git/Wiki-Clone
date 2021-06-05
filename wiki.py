@@ -69,14 +69,14 @@ def edit(city_name):
     city_name = city_name.replace('\n','')
     page_dir= current_dir / f"pages/{city_name}.txt"
     if request.method == 'POST':
-        posted_content = request.form['form']
+        posted_content = request.form['text_area']
         #validate information (user name, email, description)
-        validate_information(posted_content)
-        #write new content to file
-        write_to_page(page_dir,posted_content)
+        if validate_information(posted_content):
+            #write new content to file
+            write_to_page(page_dir,posted_content)
         #update history
         #redirect to "current page"
-        return redirect(url_for('/city_request/city_name'))
+        return redirect(url_for('city_request/city_name'))
     else:
         #get page content
         content = get_page_content(page_dir)
@@ -96,7 +96,7 @@ def validate_information(content):
 
 def write_to_page(page_dir, content):
     with open(page_dir, 'w') as f:
-        f.write()
+        f.write(content)
 
 
 def update_history():
