@@ -1,22 +1,30 @@
 <!DOCTYPE html>
 <title>{{ page_name }}</title>
 <h1>{{page_name}}</h1>
-<label for="States">Choose a state:</label>
-<select id="State">
-    {% for state in state_dict.keys() %}
-        <option value="{{state}}">{{state}}</option>
-    {% endfor %}
-</select>
-
+<style>
+table, th, td{
+    border: 1px solid black;
+}
+th, td{
+    padding: 10px;
+}
+</style>
 <fieldset>
-    <legend>Cities</legend>
-    <ul>
-    {%for state,cities in state_dict.items()%}
-        {% for city in cities %}
-            {% set location = city+', '+state %}
-            {% set url = url_for('city_request', this_page=location) %}
-            <li><a href= "{{ url }}">{{city}}</a></li>
+    <legend><h3>Cities</h3></legend>
+    <table>
+        <tr>
+            <th>State/Province</th>
+            <th>Cities</th>
+        </tr>
+        {%for state,cities in state_dict.items()%}
+        <tr>
+            <td>{{state}}</td>
+            {% for city in cities %}
+                {% set location = city+', '+state %}
+                {% set url = url_for('city_request', this_page=location) %}
+                <td><a href= "{{ url }}">{{city}}</a></td>
+            {% endfor %}
+        </tr>
         {% endfor %}
-    {% endfor %}
-    </ul>
+    </table>
 </fieldset>

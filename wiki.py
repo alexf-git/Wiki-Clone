@@ -27,7 +27,7 @@ def main():
 def home_request(home_page: str) -> str:
     return render_template(
         "home.html",
-        page_name="City Browser",
+        page_name="Historia Morbosa",
         state_dict=states,
         city_request=city_request,
     )
@@ -58,7 +58,7 @@ def city_request(this_page: str):
             img_path=img,
             city_name=name,
             city_fact=fact,
-            city_content=str(contents).strip('["').strip('"]'),
+            city_content=str(contents).strip("['").strip("\n']"),
             city_posts=comments,
         )
     return "Path is not forming " + full_path
