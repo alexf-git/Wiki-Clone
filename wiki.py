@@ -71,12 +71,14 @@ def edit(city_name):
     if request.method == 'POST':
         posted_content = request.form['text_area']
         #validate information (user name, email, description)
-        if validate_information(posted_content):
+        if is_valid(posted_content):
             #write new content to file
             write_to_page(page_dir,posted_content)
-        #update history
-        #redirect to "current page"
-        return redirect(url_for('city_request/city_name'))
+            #update history
+            #redirect to "current page"
+            return redirect(url_for('city_request',this_page = city_name))
+        else:
+            return "information is not valid"
     else:
         #get page content
         content = get_page_content(page_dir)
@@ -89,7 +91,7 @@ def get_page_content(page_dir):
         content = f.read()
     return content
 
-def validate_information(content):
+def is_valid(content):
     if len(content) != 0: 
         return True
     return False
