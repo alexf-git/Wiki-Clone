@@ -64,10 +64,10 @@ def city_request(this_page: str):
         )
     return "Path is not forming " + full_path
 
-@app.route("/edit/<city_name>", methods = ["POST"])
+@app.route("/edit/<city_name>", methods=["GET", "POST"])
 def edit(city_name):
     page_dir= current_dir / f"pages/{city_name}.txt"
-    if request.methods == 'POST':
+    if request.method == 'POST':
         posted_content = request.form['form']
         #validate information (user name, email, description)
         validate_information(posted_content)
