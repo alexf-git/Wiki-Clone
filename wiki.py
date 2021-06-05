@@ -64,8 +64,9 @@ def city_request(this_page: str):
         )
     return "Path is not forming " + full_path
 
-@app.route("/edit/<city_name>", methods=["GET", "POST"])
+@app.route("/edit/<city_name>", methods=['GET', 'POST'])
 def edit(city_name):
+    city_name = city_name.replace('\n','')
     page_dir= current_dir / f"pages/{city_name}.txt"
     if request.method == 'POST':
         posted_content = request.form['form']
@@ -80,7 +81,7 @@ def edit(city_name):
         #get page content
         content = get_page_content(page_dir)
         #send page content to html form
-        render_template("form.html", page_content = content, page_name = city_name)
+        return render_template("form.html", page_content = content, page_name = city_name)
 
 
 def get_page_content(page_dir):
