@@ -1,4 +1,5 @@
 Dustyn Loyda <dloyda@google.com>
 Alexandro Fernandez <alexandrof@google.com>
 Mario Macias <Memcias@google.com>
+Isaac Nuno <nunoisaac@google.com>
 Nathanael Gastelum <ngastelum@google.com>
