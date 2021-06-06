@@ -1,7 +1,7 @@
 import os
 import pathlib
 from flask import Flask
-from flask import render_template, redirect,url_for,request
+from flask import render_template, redirect, url_for, request
 
 app = Flask(__name__)
 current_dir = pathlib.Path(__file__).parent
@@ -64,26 +64,45 @@ def city_request(this_page: str):
         )
     return "Path is not forming " + full_path
 
-@app.route("/edit/<city_name>", methods=['GET', 'POST'])
+
+@app.route("/edit/<city_name>", methods=["GET", "POST"])
 def edit(city_name):
-    city_name = city_name.replace('\n','')
-    page_dir= current_dir / f"pages/{city_name}.txt"
-    if request.method == 'POST':
-        posted_content = request.form['text_area']
-        #validate information (user name, email, description)
-        if is_valid(posted_content):
-            #write new content to file
-            write_to_page(page_dir,posted_content)
-            #update history
-            #redirect to "current page"
-            return redirect(url_for('city_request',this_page = city_name))
+    city_name = city_name.replace("\n", "")
+    page_dir = current_dir / f"pages/{ city_name }.txt"
+    # retreive info from form
+    if request.method == "POST":
+        posted_content = request.form["text_area"]
+        edit_description = request.form["descript_edit"]
+        usr_name = request.form["fname"]
+        usr_email = request.form["e_email"]
+        # validate information (user name, email, description)
+        valid_code = validate_information(
+            posted_content, edit_description, usr_name, usr_email
+        )
+        if valid_code == 0:
+            # write new content to file
+            write_to_page(page_dir, posted_content)
+            # update history
+            update_history(edit_description, usr_name, usr_email)
+            # redirect to "current page"
+            return redirect(url_for("city_request", this_page=city_name))
         else:
-            return "information is not valid"
+            return (
+                render_template(
+                    "form.html",
+                    page_content=posted_content,
+                    page_name=city_name,
+                    error=form_errors(valid_code),
+                ),
+                400,
+            )
     else:
-        #get page content
+        # get page content
         content = get_page_content(page_dir)
-        #send page content to html form
-        return render_template("form.html", page_content = content, page_name = city_name)
+        # send page content to html form
+        return render_template(
+            "form.html", page_content=content, page_name=city_name, error=form_errors(0)
+        )
 
 
 def get_page_content(page_dir):
@@ -91,17 +110,42 @@ def get_page_content(page_dir):
         content = f.read()
     return content
 
-def is_valid(content):
-    if len(content) != 0: 
-        return True
-    return False
+
+def validate_information(content, edit_description, usr_name, usr_email):
+    # Verify content is not empty
+    if len(content) == 0:
+        return -1
+    # Verify edit description was added
+    if len(edit_description) == 0:
+        return -2
+    # Verify user name was added
+    if len(usr_name) == 0:
+        return -3
+    # Verify email
+    if "@" not in usr_email:
+        return -4
+    return 0
+
+
+def form_errors(num):
+    if num == 0:
+        return ""
+    elif num == -1:
+        return "error: post content empty"
+    elif num == -2:
+        return "error: missing description"
+    elif num == -3:
+        return "error: missing user name"
+    else:
+        return "error: missing email"
+
 
 def write_to_page(page_dir, content):
-    with open(page_dir, 'w') as f:
+    with open(page_dir, "w") as f:
         f.write(content)
 
 
-def update_history():
+def update_history(edit_description, usr_name, usr_email):
     pass
 
 

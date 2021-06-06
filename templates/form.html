@@ -1,6 +1,9 @@
 <!DOCTYPE html>
-<form action='#' method='POST'>
+<form action="#" method="POST">
     <h1>{{ page_name }}</h1>
+    <font color = "red">
+        <h2>{{error}}</h2>
+    </font>
     <textarea id = "text_area" name='text_area' rows = "40" cols = "60">
         {{ page_content }}
     </textarea><br>
