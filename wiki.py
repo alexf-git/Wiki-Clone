@@ -65,6 +65,11 @@ def city_request(this_page: str):
     return "Path is not forming " + full_path
 
 
+@app.route("/add/")
+def add_page():
+    pass
+
+
 @app.route("/edit/<city_name>", methods=["GET", "POST"])
 def edit(city_name):
     city_name = city_name.replace("\n", "")
@@ -146,6 +151,11 @@ def write_to_page(page_dir, content):
 
 
 def update_history(edit_description, usr_name, usr_email):
+    pass
+
+
+@app.route("/history/<city_name>")
+def get_history(city_name):
     pass
 
 
