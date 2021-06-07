@@ -1,10 +1,48 @@
 import os
+import flask
 from flask import Flask
 from flask import render_template
 
 app = Flask(__name__)
 
 states = dict()
+
+
+@app.route("/api/v1/pages/<page_name>/get")
+def page_api_get(page_name):
+    format = flask.request.args.get("format", "all")
+    # TODO: implement response
+    json_response = {}
+    raw_state = page_name.split(", ")
+    given_state = raw_state[1]
+    status_code = 200
+
+    if states.get(given_state) is None or raw_state[0] not in states[given_state]:
+        status_code = 404
+        json_response["success"] = False
+        json_response["reason"] = "Page does not exist."
+
+    elif format == "raw":
+        json_response["success"] = True
+        with open("pages/" + page_name + ".txt", "r") as f:
+            json_response["raw"] = f.read()
+
+    elif format == "html":
+        json_response["success"] = True
+        json_response["html"] = city_request(page_name)
+
+    elif format == "all":
+        json_response["success"] = True
+        with open("pages/" + page_name + ".txt", "r") as f:
+            json_response["raw"] = f.read()
+        json_response["html"] = city_request(page_name)
+
+    elif format != "raw" or format != "html":
+        status_code = 400
+        json_response["success"] = False
+        json_response["reason"] = "Unsupported format"
+
+    return json_response, status_code
 
 
 @app.route("/")
