@@ -138,3 +138,23 @@ discussion posts are required to not crash the page from a non iterable""",
     response_get = client.get(f"/edit/{'test city, test state'}")
     assert response_get.status_code == 200
     assert b"test state" in response_get.data
+
+
+def test_get_history(client, monkeypatch):
+    test_dir = pathlib.Path(__file__).parent
+    test_dir = test_dir / "test_dir/"
+    monkeypatch.setattr(wiki, "current_dir", test_dir)
+
+    response_get = client.get(f"/history/{'test city, test state'}")
+    assert response_get.status_code == 200
+    assert b"06/08/2021" in response_get.data
+
+
+def test_file_not_found(client, monkeypatch):
+    test_dir = pathlib.Path(__file__).parent
+    test_dir = test_dir / "test_dir/"
+    monkeypatch.setattr(wiki, "current_dir", test_dir)
+
+    response_get = client.get(f"/history/{'random city, test state'}")
+    assert response_get.status_code == 404
+    assert b"No history has been found for this page" in response_get.data

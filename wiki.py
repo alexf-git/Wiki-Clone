@@ -179,10 +179,10 @@ def update_history(edit_description, usr_name, usr_email, city_name):
 @app.route("/history/<city_name>")
 def get_history(city_name):
     city_name = city_name.rstrip()
-    full_path = "history/" + city_name + ".csv"
+    full_path = current_dir / f"history/{city_name}.csv"
     edit_history = []
     if os.path.exists(full_path):
-        with open(current_dir / f"history/{city_name}.csv", "r") as fd:
+        with open(full_path, "r") as fd:
             for line in reversed(list(csv.reader(fd))):
                 edit_history.append(
                     {
@@ -196,9 +196,12 @@ def get_history(city_name):
             "history.html", city_name=city_name, edit_content=edit_history, error=""
         )
     else:
-        error = "no history has been found for this page"
-        return render_template(
-            "history.html", city_name=city_name, edit_content="", error=error
+        error = "No history has been found for this page"
+        return (
+            render_template(
+                "history.html", city_name=city_name, edit_content="", error=error
+            ),
+            404,
         )
 
 
