@@ -65,28 +65,29 @@ def city_request(this_page: str):
     return "Path is not forming " + full_path
 
 
-@app.route("/add/")
-def add_page():
-    pass
-
-
 @app.route("/edit/<city_name>", methods=["GET", "POST"])
 def edit(city_name):
     city_name = city_name.replace("\n", "")
-    page_dir = current_dir / f"pages/{ city_name }.txt"
+    page_dir = current_dir / f"pages/{city_name}.txt"
     # retreive info from form
     if request.method == "POST":
         posted_content = request.form["text_area"]
+        content_lst = posted_content.split("\n")
+        if len(content_lst) > 2:
+            page_title = content_lst[1]
+            page_title = page_title.rstrip()
+        if city_name == "add":
+            city_name = page_title            
         edit_description = request.form["descript_edit"]
         usr_name = request.form["fname"]
         usr_email = request.form["e_email"]
         # validate information (user name, email, description)
         valid_code = validate_information(
-            posted_content, edit_description, usr_name, usr_email
+            posted_content, edit_description, usr_name, usr_email, page_title
         )
         if valid_code == 0:
             # write new content to file
-            write_to_page(page_dir, posted_content)
+            write_to_page(page_title, posted_content)
             # update history
             update_history(edit_description, usr_name, usr_email)
             # redirect to "current page"
@@ -101,6 +102,10 @@ def edit(city_name):
                 ),
                 400,
             )
+    elif city_name == "add":
+        return render_template(
+            "form.html", page_content="", page_name="", error=form_errors(0)
+        )
     else:
         # get page content
         content = get_page_content(page_dir)
@@ -110,13 +115,16 @@ def edit(city_name):
         )
 
 
+def add_page():
+    os.path.join(current_dir, 'temp.txt')
+
 def get_page_content(page_dir):
     with open(page_dir, "r") as f:
         content = f.read()
     return content
 
 
-def validate_information(content, edit_description, usr_name, usr_email):
+def validate_information(content, edit_description, usr_name, usr_email, page_title):
     # Verify content is not empty
     if len(content) == 0:
         return -1
@@ -129,6 +137,8 @@ def validate_information(content, edit_description, usr_name, usr_email):
     # Verify email
     if "@" not in usr_email:
         return -4
+    if page_title == None:
+        return -5
     return 0
 
 
@@ -141,12 +151,14 @@ def form_errors(num):
         return "error: missing description"
     elif num == -3:
         return "error: missing user name"
-    else:
+    elif num == -4:
         return "error: missing email"
+    else:
+        return "error: missing page title"
 
 
-def write_to_page(page_dir, content):
-    with open(page_dir, "w") as f:
+def write_to_page(page_title, content):
+    with open(current_dir / f"pages/{page_title}.txt", "w") as f:
         f.write(content)
 
 
