@@ -171,7 +171,7 @@ def update_history(edit_description, usr_name, usr_email, city_name):
 
     myRow = [date_time_string, usr_name, usr_email, edit_description]
 
-    with open(current_dir / f"history / {city_name}.csv", "a") as fd:
+    with open(current_dir / f"history/{city_name}.csv", "a") as fd:
         writer = csv.writer(fd)
         writer.writerow(myRow)
 
