@@ -77,7 +77,7 @@ def edit(city_name):
             page_title = content_lst[1]
             page_title = page_title.rstrip()
         if city_name == "add":
-            city_name = page_title            
+            city_name = page_title
         edit_description = request.form["descript_edit"]
         usr_name = request.form["fname"]
         usr_email = request.form["e_email"]
@@ -116,7 +116,8 @@ def edit(city_name):
 
 
 def add_page():
-    os.path.join(current_dir, 'temp.txt')
+    os.path.join(current_dir, "temp.txt")
+
 
 def get_page_content(page_dir):
     with open(page_dir, "r") as f:
@@ -137,7 +138,7 @@ def validate_information(content, edit_description, usr_name, usr_email, page_ti
     # Verify email
     if "@" not in usr_email:
         return -4
-    if page_title == None:
+    if page_title is None:
         return -5
     return 0
 
