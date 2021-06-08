@@ -103,6 +103,17 @@ def test_form_errors(error_code, expected):
     assert error_msg == expected
 
 
+# Test functions for writing to and reading from a page
+def test_page_rw(monkeypatch):
+    test_dir = pathlib.Path(__file__).parent
+    test_dir = test_dir / "test_dir/"
+    monkeypatch.setattr(wiki, "current_dir", test_dir)
+
+    wiki.write_to_page("test city, test state", "success")
+    content = wiki.get_page_content(test_dir / f"pages/{'test city, test state'}.txt")
+    assert content == "success"
+
+
 def test_edit_route_integration(client, monkeypatch):
     test_dir = pathlib.Path(__file__).parent
     test_dir = test_dir / "test_dir/"
