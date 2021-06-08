@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<font color = "red">
+    <h2>{{error}}</h2>
+</font>
+<body>
+    {% for history in edit_content %}
+        <ul> 
+            <li>{{history['description']}} on {{history['date']}} by {{history['author']}} {{history['email']}} <br></li>
+        </ul>
+    {% endfor %}
+
+
+</body>

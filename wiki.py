@@ -1,7 +1,9 @@
 import os
 import pathlib
+import csv
 from flask import Flask
 from flask import render_template, redirect, url_for, request
+from datetime import datetime
 
 app = Flask(__name__)
 current_dir = pathlib.Path(__file__).parent
@@ -89,7 +91,7 @@ def edit(city_name):
             # write new content to file
             write_to_page(page_title, posted_content)
             # update history
-            update_history(edit_description, usr_name, usr_email)
+            update_history(edit_description, usr_name, usr_email, city_name)
             # redirect to "current page"
             return redirect(url_for("city_request", this_page=city_name))
         else:
@@ -163,13 +165,41 @@ def write_to_page(page_title, content):
         f.write(content)
 
 
-def update_history(edit_description, usr_name, usr_email):
-    pass
+def update_history(edit_description, usr_name, usr_email, city_name):
+    time = datetime.now()
+    date_time_string = time.strftime("%m/%d/%Y %H:%M:%S")
+
+    myRow = [date_time_string, usr_name, usr_email, edit_description]
+
+    with open(current_dir / f"history / {city_name}.csv", "a") as fd:
+        writer = csv.writer(fd)
+        writer.writerow(myRow)
 
 
 @app.route("/history/<city_name>")
 def get_history(city_name):
-    pass
+    city_name = city_name.rstrip()
+    full_path = "history/" + city_name + ".csv"
+    edit_history = []
+    if os.path.exists(full_path):
+        with open(current_dir / f"history/{city_name}.csv", "r") as fd:
+            for line in reversed(list(csv.reader(fd))):
+                edit_history.append(
+                    {
+                        "date": line[0],
+                        "description": line[3],
+                        "author": line[1],
+                        "email": line[2],
+                    }
+                )
+        return render_template(
+            "history.html", city_name=city_name, edit_content=edit_history, error=""
+        )
+    else:
+        error = "no history has been found for this page"
+        return render_template(
+            "history.html", city_name=city_name, edit_content="", error=error
+        )
 
 
 def backup():
