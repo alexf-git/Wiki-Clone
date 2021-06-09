@@ -1,3 +1,8 @@
+Wiki  Copyright (C) 2021  as listed below
+  This program comes with ABSOLUTELY NO WARRANTY; for details type `show w'.
+    This is free software, and you are welcome to redistribute it
+    under certain conditions; type `show c' for details.
+
 Dustyn Loyda <dloyda@google.com>
 Alexandro Fernandez <alexandrof@google.com>
 Mario Macias <Memcias@google.com>
