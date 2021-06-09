@@ -31,7 +31,9 @@
                                 </header>
                                     <div class="card-image">
                                         <figure class="image center">
-                                            <img src="{{ url_for('static', filename='images/elpaso.jpg') }}" style="max-width: 512px"/>
+                                            {% set img = {{city}} + '.jpg' %}
+                                            {% set url = url_for('static', filename={{img}} %}
+                                            <img src="{{ url }}" style="max-width: 512px"/>
                                         </figure>
                                     </div>
                                 <div class="card-content">
