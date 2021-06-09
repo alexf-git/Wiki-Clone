@@ -1,11 +1,12 @@
 import os
+import typing
 import flask
 from flask import Flask
 from flask import render_template
 
 app = Flask(__name__)
 
-states = dict()
+states: typing.Dict[str, list] = {}
 
 
 @app.route("/api/v1/pages/<page_name>/get")

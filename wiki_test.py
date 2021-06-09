@@ -39,21 +39,29 @@ def test_page_api_get(client):
     assert "raw" in json.loads(resp.data).keys()
     assert "html" in json.loads(resp.data).keys()
 
+
+def test_page_api_get_no_page(client):
     resp = client.get("/api/v1/pages/El Po, Texas/get?format=raw")
     assert resp.status_code == 404
     assert json.loads(resp.data)["success"] is False
     assert "reason" in json.loads(resp.data).keys()
 
+
+def test_page_api_get_raw(client):
     resp = client.get("/api/v1/pages/El Paso, Texas/get?format=raw")
     assert resp.status_code == 200
     assert json.loads(resp.data)["success"] is True
     assert "raw" in json.loads(resp.data).keys()
 
+
+def test_page_api_get_html(client):
     resp = client.get("/api/v1/pages/El Paso, Texas/get?format=html")
     assert resp.status_code == 200
     assert json.loads(resp.data)["success"] is True
     assert "html" in json.loads(resp.data).keys()
 
+
+def test_page_api_get_unsupported(client):
     resp = client.get("/api/v1/pages/El Paso, Texas/get?format=pdf")
     assert resp.status_code == 400
     assert json.loads(resp.data)["success"] is False
