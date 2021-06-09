@@ -64,7 +64,7 @@ def main():
 @app.route("/home_request/<home_page>")
 def home_request(home_page: str) -> str:
     return render_template(
-        "home.html",
+        "home2.html",
         page_name="Historia Morbosa",
         state_dict=states,
         city_request=city_request,
