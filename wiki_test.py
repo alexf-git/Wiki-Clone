@@ -1,6 +1,7 @@
 import pytest  # type: ignore
 import pathlib
 import wiki
+import json
 
 
 @pytest.fixture

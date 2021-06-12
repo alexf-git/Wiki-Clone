@@ -1,3 +1,9 @@
+"""Wiki  Copyright (C) 2021  See AUTHORS.txt
+This program comes with ABSOLUTELY NO WARRANTY; for details type `show w'.
+    This is free software, and you are welcome to redistribute it
+    under certain conditions; type `show c' for details.
+
+"""
 import os
 import pathlib
 import csv
@@ -6,8 +12,45 @@ from flask import render_template, redirect, url_for, request
 from datetime import datetime
 
 app = Flask(__name__)
-current_dir = pathlib.Path(__file__).parent
-states = dict()
+
+states: typing.Dict[str, list] = {}
+
+
+@app.route("/api/v1/pages/<page_name>/get")
+def page_api_get(page_name):
+    format = flask.request.args.get("format", "all")
+    # TODO: implement response
+    json_response = {}
+    raw_state = page_name.split(", ")
+    given_state = raw_state[1]
+    status_code = 200
+
+    if states.get(given_state) is None or raw_state[0] not in states[given_state]:
+        status_code = 404
+        json_response["success"] = False
+        json_response["reason"] = "Page does not exist."
+
+    elif format == "raw":
+        json_response["success"] = True
+        with open("pages/" + page_name + ".txt", "r") as f:
+            json_response["raw"] = f.read()
+
+    elif format == "html":
+        json_response["success"] = True
+        json_response["html"] = city_request(page_name)
+
+    elif format == "all":
+        json_response["success"] = True
+        with open("pages/" + page_name + ".txt", "r") as f:
+            json_response["raw"] = f.read()
+        json_response["html"] = city_request(page_name)
+
+    elif format != "raw" or format != "html":
+        status_code = 400
+        json_response["success"] = False
+        json_response["reason"] = "Unsupported format"
+
+    return json_response, status_code
 
 
 @app.route("/")
@@ -29,7 +72,7 @@ def main():
 @app.route("/home_request/<home_page>")
 def home_request(home_page: str) -> str:
     return render_template(
-        "home.html",
+        "home2.html",
         page_name="Historia Morbosa",
         state_dict=states,
         city_request=city_request,

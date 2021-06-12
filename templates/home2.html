@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <style>
+.center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+    </style>
+	<head>
+		<meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.0/css/bulma.min.css">
+		<script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+	</head>
+	<body>
+		<img src="{{ url_for('static', filename='images/logo_v1.png') }}" style="max-width: 212px"/>
+        <title>{{ page_name }}</title>
+        <h1 class="title center has-background-danger">{{page_name}}</h1>
+        <div class="columns is-multiline"></div>
+            {% for state,cities in state_dict.items()%}
+                {% for city in cities%}
+                    <div class="column is-one-quarter">
+                        <section class="section" style="max-width: 312px">
+                            <div class="card">
+                                <header class="card-header">
+                                    <p class="card-header-title center">
+                                        {{state}}
+                                    </p>
+                                </header>
+                                    <div class="card-image">
+                                        <figure class="image center">
+                                            {% set img = '{{city}}' + '.jpg' %}
+                                            {% set url = url_for('static', filename='{{img}}') %}
+                                            <img src="{{ url }}" style="max-width: 512px"/>
+                                        </figure>
+                                    </div>
+                                <div class="card-content">
+                                    <div class="content center">
+                                        {{city}}
+                                    </div>
+                                    <footer class"card-footer">
+                                        {% set location = city+', '+state %}
+                                        {% set url = url_for('city_request', this_page=location) %}
+                                        <a href="{{url}}" class="card-footer-item"> Open page</a>
+                                    </footer>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+
+                {% endfor %}
+            {% endfor %}
+        </div>
+	</body>
+</html>
