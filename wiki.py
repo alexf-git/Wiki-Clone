@@ -5,7 +5,6 @@ This program comes with ABSOLUTELY NO WARRANTY; for details type `show w'.
 
 """
 import os
-import pathlib
 import csv
 import typing
 import flask
