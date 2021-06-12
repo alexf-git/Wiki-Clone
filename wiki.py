@@ -7,6 +7,8 @@ This program comes with ABSOLUTELY NO WARRANTY; for details type `show w'.
 import os
 import pathlib
 import csv
+import typing
+import flask
 from flask import Flask
 from flask import render_template, redirect, url_for, request
 from datetime import datetime
@@ -14,6 +16,8 @@ from datetime import datetime
 app = Flask(__name__)
 
 states: typing.Dict[str, list] = {}
+
+current_dir = os.getcwd()
 
 
 @app.route("/api/v1/pages/<page_name>/get")
