@@ -17,41 +17,41 @@
 	<body>
 		<img src="{{ url_for('static', filename='images/logo_v1.png') }}" style="max-width: 212px"/>
         <title>{{ page_name }}</title>
-        <h1 class="title center has-background-danger">{{page_name}}</h1>
-        <div class="columns is-multiline"></div>
-            {% for state,cities in state_dict.items()%}
-                {% for city in cities%}
-                    <div class="column is-one-quarter">
-                        <section class="section" style="max-width: 312px">
-                            <div class="card">
-                                <header class="card-header">
-                                    <p class="card-header-title center">
-                                        {{state}}
-                                    </p>
-                                </header>
-                                    <div class="card-image">
-                                        <figure class="image center">
-                                            {% set img = '{{city}}' + '.jpg' %}
-                                            {% set url = url_for('static', filename='{{img}}') %}
-                                            <img src="{{ url }}" style="max-width: 512px"/>
-                                        </figure>
-                                    </div>
-                                <div class="card-content">
-                                    <div class="content center">
-                                        {{city}}
-                                    </div>
-                                    <footer class"card-footer">
-                                        {% set location = city+', '+state %}
-                                        {% set url = url_for('city_request', this_page=location) %}
-                                        <a href="{{url}}" class="card-footer-item"> Open page</a>
-                                    </footer>
-                                </div>
+        <h1 class="title center has-background-danger">City Selection</h1>
+        {% set i = 0 %}
+        {% for state,cities in state_dict.items()%}
+            <div class="columns is-multiline is-centered">
+            {% for city in cities%}
+                <div class="column is-one-fifth-desktop">
+                    <section class="section" style="max-width: 312px">
+                        <div class="card">
+                            <header class="card-header">
+                                <p class="card-header-title center">
+                                    {{state}}
+                                </p>
+                            </header>
+                            <div class="card-image">
+                                <figure class="image center">
+                                    {% set img = city + '.jpg' %}
+                                    {% set url = url_for('static', filename='images/'+ img) %}
+                                    <img src="{{ url }}" style="max-width: 512px"/>
+                                </figure>
                             </div>
-                        </section>
-                    </div>
-
-                {% endfor %}
+                            <div class="card-content">
+                                <div class="content center">
+                                    {{city}}
+                                </div>
+                                <footer class"card-footer">
+                                    {% set location = city+', '+state %}
+                                    {% set url = url_for('city_request', this_page=location) %}
+                                    <a href="{{url}}" class="card-footer-item"> Open page</a>
+                                </footer>
+                            </div>
+                        </div>
+                    </section>
+                </div>
             {% endfor %}
-        </div>
+            </div>
+        {% endfor %}
 	</body>
 </html>

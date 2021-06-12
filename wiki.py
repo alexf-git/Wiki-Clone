@@ -99,7 +99,7 @@ def city_request(this_page: str):
                     comments = payload[index:]
                 break
         return render_template(
-            "city.html",
+            "city2.html",
             img_path=img,
             city_name=name,
             city_fact=fact,
