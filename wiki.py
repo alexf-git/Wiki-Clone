@@ -116,7 +116,7 @@ def city_request(this_page: str):
 @app.route("/edit/<city_name>", methods=["GET", "POST"])
 def edit(city_name):
     city_name = city_name.replace("\n", "")
-    page_dir = current_dir / f"pages/{city_name}.txt"
+    page_dir = current_dir + f"/pages/{city_name}.txt"
     # retreive info from form
     if request.method == "POST":
         posted_content = request.form["text_area"]
@@ -207,7 +207,7 @@ def form_errors(num):
 
 
 def write_to_page(page_title, content):
-    with open(current_dir / f"pages/{page_title}.txt", "w") as f:
+    with open(current_dir + f"/pages/{page_title}.txt", "w") as f:
         f.write(content)
 
 
@@ -217,7 +217,7 @@ def update_history(edit_description, usr_name, usr_email, city_name):
 
     myRow = [date_time_string, usr_name, usr_email, edit_description]
 
-    with open(current_dir / f"history/{city_name}.csv", "a") as fd:
+    with open(current_dir + f"/history/{city_name}.csv", "a") as fd:
         writer = csv.writer(fd)
         writer.writerow(myRow)
 
@@ -225,7 +225,7 @@ def update_history(edit_description, usr_name, usr_email, city_name):
 @app.route("/history/<city_name>")
 def get_history(city_name):
     city_name = city_name.rstrip()
-    full_path = current_dir / f"history/{city_name}.csv"
+    full_path = current_dir + f"/history/{city_name}.csv"
     edit_history = []
     if os.path.exists(full_path):
         with open(full_path, "r") as fd:
