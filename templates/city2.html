@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="content">
-        <title> {{city_name}}</title>
+        <title>{{city_name}}</title>
          <button class="button-is-large ">
              <span class="icon-text">
                 <span class="icon ">
@@ -47,16 +47,6 @@
             {% for post in city_posts %}
                 <p>{{ post|replace("\n'",' ') }}</p>
             {% endfor %}
-        </fieldset>
-        <fieldset>
-            <legend>Post comment</legend>
-            <label for='poster_name'>Name:</label>
-            <input type='text' id='poster_name' name="poster_name"><br><br>
-            <label for='poster_email'>Email:</label>
-            <input type='text' id='poster_email' name="poster_email"><br><br>
-            <label for='poster_post'>Your Post:</label>
-            <textarea name="poster_post" rows='5'></textarea>
-            <input type='submit' value='Post'>
         </fieldset>
     </div>
 </body>
