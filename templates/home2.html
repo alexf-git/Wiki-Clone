@@ -15,10 +15,26 @@
 		<script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
 	</head>
 	<body>
-		<img src="{{ url_for('static', filename='images/logo_v1.png') }}" style="max-width: 212px"/>
-        <title>{{ page_name }}</title>
-        <h1 class="title center has-background-danger">City Selection</h1>
-        {% set i = 0 %}
+        <div class="content">
+            <img src="{{ url_for('static', filename='images/logo_v1.png') }}" style="max-width: 212px"/>
+            <title>{{ page_name }}</title>
+            <section class="hero center is-danger is-small">
+                <div class="hero-body center">
+                    <figure class="image center">
+                        {% set url = url_for('static', filename='images/city banner2.png') %}
+                        <img class="image" src="{{url}}" style="max-width: 1012px"/>
+                    </figure>
+                </div>
+            </section>
+
+            <h1 class="title has-text-centered has-background-danger">City Selection</h1>
+            <div class="container center">
+                 <button class="button is-large ">
+                    <a href="{{url_for('edit', city_name='add')}}">Add Page</a>
+                </button>
+            </div>
+
+        </div>
         {% for state,cities in state_dict.items()%}
             <div class="columns is-multiline is-centered">
             {% for city in cities%}
@@ -32,9 +48,9 @@
                             </header>
                             <div class="card-image">
                                 <figure class="image center">
-                                    {% set img = city + '.jpg' %}
+                                    {% set img = city + ', ' + state + '.jpg' %}
                                     {% set url = url_for('static', filename='images/'+ img) %}
-                                    <img src="{{ url }}" style="max-width: 512px"/>
+                                    <img src="{{ url }}" style="max-height: 112px"/>
                                 </figure>
                             </div>
                             <div class="card-content">

@@ -1,0 +1,9 @@
+body{
+    background-color: ghostwhite;
+}
+
+.hero{
+    background-image: url('images/El Paso Banner.jpg');
+    background-repeat: no-repeat;
+    background-size: 1000px;
+}
