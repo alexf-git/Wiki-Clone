@@ -1,5 +1,4 @@
 Texas=El Paso,San Antonio,Houston
 California=Los Angeles,San Francisco,Sacramento
 Tokyo Metropolis=Tokyo,Akihabara,Shinagawa
-
 USA=Gotham City

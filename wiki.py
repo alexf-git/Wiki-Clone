@@ -213,16 +213,17 @@ def form_errors(num):
 
 
 def write_to_page(page_title, content):
+    output = "home"
     names = page_title.split(",")
     state = names[-1].strip()
     if state not in states.keys():
         file_name = names[-1] + "=" + names[0]
-        with open(current_dir / "pages/home.txt", "a") as f:
+        with open(current_dir / f"pages/{output}.txt", "a") as f:
             f.write("\n")
             f.write(file_name.strip())
     else:
         file_name = "," + names[0]
-        with open(current_dir / "pages/home.txt", "a") as f:
+        with open(current_dir / f"pages/{output}.txt", "a") as f:
             f.write(file_name.strip())
     with open(current_dir / f"pages/{page_title}.txt", "w") as f:
         f.write(content)
