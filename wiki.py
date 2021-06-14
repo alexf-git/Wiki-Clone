@@ -75,11 +75,15 @@ def main():
 
 @app.route("/home_request/<home_page>")
 def home_request(home_page: str) -> str:
+    images = []
+    for image in os.listdir("static/images"):
+        images.append(os.path.join("static/images", image))
     return render_template(
         "home2.html",
         page_name="Historia Morbosa",
         state_dict=states,
         city_request=city_request,
+        images=images,
     )
 
 
@@ -158,6 +162,7 @@ def edit(city_name):
     else:
         # get page content
         content = get_page_content(page_dir)
+
         # send page content to html form
         return render_template(
             "form.html", page_content=content, page_name=city_name, error=form_errors(0)
@@ -208,6 +213,17 @@ def form_errors(num):
 
 
 def write_to_page(page_title, content):
+    names = page_title.split(",")
+    state = names[-1].strip()
+    if state not in states.keys():
+        file_name = names[-1] + "=" + names[0]
+        with open(current_dir / "pages/home.txt", "a") as f:
+            f.write("\n")
+            f.write(file_name.strip())
+    else:
+        file_name = "," + names[0]
+        with open(current_dir / "pages/home.txt", "a") as f:
+            f.write(file_name.strip())
     with open(current_dir / f"pages/{page_title}.txt", "w") as f:
         f.write(content)
 

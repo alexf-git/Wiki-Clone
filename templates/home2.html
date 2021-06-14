@@ -48,9 +48,18 @@
                             </header>
                             <div class="card-image">
                                 <figure class="image center">
-                                    {% set img = city + ', ' + state + '.jpg' %}
-                                    {% set url = url_for('static', filename='images/'+ img) %}
-                                    <img src="{{ url }}" style="max-height: 112px"/>
+                                    {% set exist = {'foo': False} %}
+                                    {% for filename in images %}
+                                        {% if city + ", "+ state + ".jpg" == filename.replace("static/images/", "")%}
+                                            {% set img = city + ', ' + state + '.jpg' %}
+                                            {% set url = url_for('static', filename='images/'+ img) %}
+                                            <img src="{{ url }}" style="max-height: 98px"/>
+                                            {% if exist.update({'foo': True}) %}{% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% if exist['foo'] == False %}
+                                        <img src="https://www.creativefabrica.com/wp-content/uploads/2020/03/08/Silhouette-city-building-in-the-morning-Graphics-3365873-1.jpg" style="max-height: 98"/>
+                                    {% endif %}
                                 </figure>
                             </div>
                             <div class="card-content">
