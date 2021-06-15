@@ -43,9 +43,13 @@
 
         <fieldset>
             <legend>Discussion Board</legend>
-            {% for post in city_posts %}
-                <p>{{ post|replace("\n'",' ') }}</p>
-            {% endfor %}
+            {% if city_posts %}
+                {% for post in city_posts %}
+                    <p>{{ post|replace("\n'",' ') }}</p>
+                {% endfor %}
+            {% else %}
+                <p>NO COMMENTS FOR THIS PAGE</p>
+            {% endif %}
         </fieldset>
     </div>
 </body>
