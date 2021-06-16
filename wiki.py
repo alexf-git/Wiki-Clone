@@ -223,8 +223,12 @@ def write_to_page(page_title, content):
             f.write(file_name.strip())
     else:
         file_name = "," + names[0]
-        with open(current_dir / f"pages/{output}.txt", "a") as f:
-            f.write(file_name.strip())
+        cities = states.get(state)
+        if names[0] not in cities:
+            cities.append(names[0])
+            with open(current_dir / f"pages/{output}.txt", "w") as f:
+                for s, cities in states.items():
+                    f.write(s + "=" + ",".join(cities) + "\n")
     with open(current_dir / f"pages/{page_title}.txt", "w") as f:
         f.write(content)
 
